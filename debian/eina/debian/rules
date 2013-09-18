@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+#include /usr/share/cdbs/1/rules/debhelper.mk
+#include /usr/share/cdbs/1/class/autotools.mk
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+	--enable-posix-threads \
+	--enable-mempool-chained-pool=static

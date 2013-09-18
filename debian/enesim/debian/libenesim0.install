@@ -1,0 +1,2 @@
+debian/tmp/usr/lib/*/enesim/*
+debian/tmp/usr/lib/*/libenesim.so.*

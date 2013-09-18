@@ -1,0 +1,4 @@
+debian/tmp/usr/include/*
+debian/tmp/usr/lib/*/pkgconfig/*
+debian/tmp/usr/lib/*/libenesim.a
+debian/tmp/usr/lib/*/libenesim.so
