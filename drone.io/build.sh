@@ -1,8 +1,9 @@
 #!/bin/sh
 
+REPO=`echo ${DRONE_REPO_SLUG} | cut -d / -f 2`
 ## Read the configuration file for the project
-if [ ! -e drone.io/${DRONE_REPO_SLUG}.conf ]; then
-  echo "No such configuration file: drone.io/${DRONE_REPO_SLUG}.conf"
+if [ ! -e packaging/drone.io/${REPO}.conf ]; then
+  echo "No such configuration file: drone.io/${REPO}.conf"
   exit 1
 fi
 
@@ -26,11 +27,11 @@ NOCONFIGURE=1 ./autogen.sh
 make dist
 
 ## Copy the dist
-cp ${DRONE_REPO_SLUG}*.tar.gz ${DRONE_REPO_SLUG}-latest.tar.gz
+cp ${REPO}*.tar.gz ${REPO}-latest.tar.gz
 
 ## The packaging pproject must be already cloned, just copy the debian
 ## directory
-cp -r packaging/debian/${DRONE_REPO_SLUG}/debian .
+cp -r packaging/debian/${REPO}/debian .
 debuild -i -us -uc -b
 cp ../*.deb .
 
