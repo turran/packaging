@@ -52,6 +52,7 @@ if [ -z ${NODOC} ]; then
 	## Finally add the new files, remove the old ones, etc
 	cd gh-pages
 	git add -A
+	git commit -m "Updating the docs"
 	git push --dry-run
 	cd ..
 fi
