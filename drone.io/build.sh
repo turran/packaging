@@ -7,6 +7,9 @@ if [ ! -e packaging/drone.io/${REPO}.conf ]; then
   exit 1
 fi
 
+## Include the repo configuration
+source packaging/drone.io/${REPO}.conf
+
 # Add our local repo
 mkdir repo
 cd repo
