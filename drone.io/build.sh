@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 REPO=`echo ${DRONE_REPO_SLUG} | cut -d / -f 3`
 ## Read the configuration file for the project
@@ -8,7 +8,7 @@ if [ ! -e packaging/drone.io/${REPO}.conf ]; then
 fi
 
 ## Include the repo configuration
-source "packaging/drone.io/${REPO}.conf"
+source packaging/drone.io/${REPO}.conf
 
 # Add our local repo
 mkdir repo
