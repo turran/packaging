@@ -48,7 +48,7 @@ if [ -z ${NODOC} ]; then
 	git clone -b gh-pages git@github.com:turran/${REPO}.git gh-pages
 	make doc
 	rm -rf gh-pages/docs/*
-	cp -r docs/html/* gh-pages/docs
+	cp -r doc/html/* gh-pages/docs
 	## Finally add the new files, remove the old ones, etc
 	cd gh-pages
 	git add -A
