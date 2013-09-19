@@ -1,8 +1,8 @@
 Source: enesim
 Section: libs
 Priority: optional
-Build-Depends: debhelper (>= 6), cdbs, pkg-config, libglew-dev,
-  libpng12-dev, libjpeg-dev, libfreetype6-dev, libfontconfig1-dev
+Build-Depends: debhelper (>= 6), cdbs, pkg-config, libeina-dev (>= 1.7.8)
+  libglew-dev, libpng12-dev, libjpeg-dev, libfreetype6-dev, libfontconfig1-dev
 Build-Depends-Indep: doxygen
 Maintainer: Jorge Zapata <jorgeluis.zapata@gmail.com>
 Standards-Version: 3.9.1
@@ -19,7 +19,8 @@ Section: libdevel
 Architecture: any
 Pre-Depends: multiarch-support
 Depends: ${misc:Depends}, libenesim0 (= ${binary:Version}), pkg-config,
-  libglew-dev, libpng12-dev, libjpeg-dev, libfreetype6-dev, libfontconfig1-dev,
+  libeina-dev (>= 1.7.8), libglew-dev, libpng12-dev, libjpeg-dev,
+  libfreetype6-dev, libfontconfig1-dev,
 Recommends: libenesim-doc
 Description: Drawing library
  This package contains headers and static libraries for development with
