@@ -28,8 +28,8 @@ make dist
 ## Copy the dist
 cp ${DRONE_REPO_SLUG}*.tar.gz ${DRONE_REPO_SLUG}-latest.tar.gz
 
-## Clone the packaging repo so we now how to build for debian
-git clone git://github.com/turran/packaging.git
+## The packaging pproject must be already cloned, just copy the debian
+## directory
 cp -r packaging/debian/${DRONE_REPO_SLUG}/debian .
 debuild -i -us -uc -b
 cp ../*.deb .
