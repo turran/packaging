@@ -1,0 +1,51 @@
+Source: etch
+Section: libs
+Priority: optional
+Build-Depends: debhelper (>= 6), cdbs, pkg-config, libeina-dev (>= 1.0.0),
+  libglew-dev, libpng12-dev, libjpeg-dev, libfreetype6-dev,
+  libfontconfig1-dev
+Build-Depends-Indep: doxygen
+Maintainer: Jorge Zapata <jorgeluis.zapata@gmail.com>
+Standards-Version: 3.9.1
+Vcs-Browser: http://github.com/turran/etch.git
+
+Package: libetch0
+Architecture: any
+Pre-Depends: multiarch-support
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Drawing library
+
+Package: libetch-dev
+Section: libdevel
+Architecture: any
+Pre-Depends: multiarch-support
+Depends: ${misc:Depends}, libetch0 (= ${binary:Version}), pkg-config,
+  libeina-dev (>= 1.0.0), libglew-dev, libpng12-dev, libjpeg-dev,
+  libfreetype6-dev, libfontconfig1-dev,
+Recommends: libetch-doc
+Description: Timeline based animation library
+ This package contains headers and static libraries for development with
+ libetch.
+
+Package: libetch-doc
+Architecture: all
+Pre-Depends: multiarch-support
+Depends: ${misc:Depends}
+Enhances: libetch-dev
+Section: doc
+Description: Timeline based animation library
+ This package contains documentation for libetch.
+
+
+Package: libetch-dbg
+Architecture: any
+Section: debug
+Pre-Depends: multiarch-support
+Depends: ${misc:Depends}, libetch0 (= ${binary:Version})
+Priority: extra
+Description: Timeline based animation library
+ This package contains unstripped shared libraries. It is provided primarily
+ to provide a backtrace with names in a debugger, this makes it somewhat easier
+ to interpret core dumps. The libraries are installed in /usr/lib/debug and
+ are automatically used by gdb.
+
