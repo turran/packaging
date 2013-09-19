@@ -32,11 +32,26 @@ make dist
 ## Copy the dist
 cp ${REPO}*.tar.gz ${REPO}-latest.tar.gz
 
-## The packaging pproject must be already cloned, just copy the debian
+## The packaging project must be already cloned, just copy the debian
 ## directory
-cp -r packaging/debian/${REPO}/debian .
-debuild -i -us -uc -b
-cp ../*.deb .
+if [ -z ${NODEB} ]; then
+	if [ -e packaging/debian/${REPO}/debian ]; then
+		cp -r packaging/debian/${REPO}/debian .
+		debuild -i -us -uc -b
+		cp ../*.deb .
+	fi
+fi
 
 ## TODO Make the doc
 ## Push the doc to the gh-pages branch and docs directory
+if [ -z ${NODOC} ]; then
+	git clone -b gh-pages git@github.com:turran/${REPO}.git gh-pages
+	make doc
+	rm -rf gh-pages/docs/*
+	cp -r docs/html/* gh-pages/docs
+	## Finally add the new files, remove the old ones, etc
+	cd gh-pages
+	git add -A
+	git push --dry-run
+	cd ..
+fi
