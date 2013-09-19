@@ -42,8 +42,8 @@ if [ -z ${NODEB} ]; then
 	fi
 fi
 
-## TODO Make the doc
 ## Push the doc to the gh-pages branch and docs directory
+## Be sure to add the drone.io key to the deploy keys
 if [ -z ${NODOC} ]; then
 	git clone -b gh-pages git@github.com:turran/${REPO}.git gh-pages
 	make doc
@@ -53,6 +53,6 @@ if [ -z ${NODOC} ]; then
 	cd gh-pages
 	git add -A
 	git commit -m "Updating the docs"
-	git push --dry-run
+	git push
 	cd ..
 fi
