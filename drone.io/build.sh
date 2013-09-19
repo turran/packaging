@@ -1,9 +1,9 @@
 #!/bin/sh
 
-REPO=`echo ${DRONE_REPO_SLUG} | cut -d / -f 2`
+REPO=`echo ${DRONE_REPO_SLUG} | cut -d / -f 3`
 ## Read the configuration file for the project
 if [ ! -e packaging/drone.io/${REPO}.conf ]; then
-  echo "No such configuration file: drone.io/${REPO}.conf"
+  echo "No such configuration file: packaging/drone.io/${REPO}.conf"
   exit 1
 fi
 
