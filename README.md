@@ -1,1 +1,1 @@
-[![Build Status](https://drone.io/github.com/turran/enesim/status.png)](https://drone.io/github.com/turran/enesim/latest)
+This project serves as a place to store package builder scripts/rules/configuration of the different owned projects
