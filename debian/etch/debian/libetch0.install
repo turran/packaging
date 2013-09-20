@@ -1,2 +1,2 @@
-debian/tmp/usr/lib/*/enesim/*
-debian/tmp/usr/lib/*/libenesim.so.*
+debian/tmp/usr/lib/*/etch/*
+debian/tmp/usr/lib/*/libetch.so.*
