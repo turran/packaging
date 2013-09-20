@@ -26,7 +26,7 @@ fi
 
 ## Install the dependencies
 sudo apt-get install devscripts cdbs check
-if [ ! -z ${BUILD_DEPENDENCIES} ]; then
+if [ ! -z "${BUILD_DEPENDENCIES}" ]; then
 	sudo apt-get install ${BUILD_DEPENDENCIES}
 fi
 
@@ -57,6 +57,9 @@ if [ -z ${NODOC} ]; then
 		git clone -b gh-pages git@github.com:turran/${REPO}.git gh-pages
 		make doc
 		rm -rf gh-pages/docs/*
+		if [ ! -e gh-pages/docs ]; then
+			mkdir gh-pages/docs
+		fi
 		cp -r doc/html/* gh-pages/docs
 		## Finally add the new files, remove the old ones, etc
 		cd gh-pages
