@@ -11,7 +11,7 @@ fi
 source packaging/drone.io/${REPO}.conf
 
 ## Add our local repo and our specific dependencies
-if [ ! -z ${REMOTE_DEPENDENCIES} ]; then
+if [ ! -z "${REMOTE_DEPENDENCIES}" ]; then
 	mkdir repo
 	cd repo
 	for i in ${REMOTE_DEPENDENCIES}; do
