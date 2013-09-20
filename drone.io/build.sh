@@ -30,10 +30,6 @@ if [ ! -z ${BUILD_DEPENDENCIES} ]; then
 	sudo apt-get install ${BUILD_DEPENDENCIES}
 fi
 
-if [ -z ${NODOC} ]; then
-	sudo apt-get install doxygen
-fi
-
 ## Check that everything is fine
 NOCONFIGURE=1 ./autogen.sh
 ./configure
