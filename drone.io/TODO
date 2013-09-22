@@ -1,0 +1,7 @@
++ Add support for coveralls.io
++ Install https://github.com/eddyxu/cpp-coveralls for C/C++ coveralls.io support
++ The token needs to placed on the ENVIRONMENT given that it is not made public
++ Add support for releases. We need to add a nano version, i.e x.y.z.1 for git/svn/cvs whatever
+  and 0 for a release. In case such number is 0 or does not exist we can create a new tag
+  on git. Later with some github api bin we can create a real release instead of doing
+  it manually
