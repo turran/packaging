@@ -32,8 +32,8 @@ fi
 
 ## Check that everything is fine
 NOCONFIGURE=1 ./autogen.sh
-./configure
-make dist
+./configure || exit 1
+make dist || exit 1
 
 ## Copy the dist
 cp ${REPO}*.tar.gz ${REPO}-latest.tar.gz
