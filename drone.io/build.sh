@@ -1,6 +1,8 @@
 #!/bin/bash
 
 REPO=`echo ${DRONE_REPO_SLUG} | cut -d / -f 3`
+UPDATE_REPOS=0
+
 ## Read the configuration file for the project
 if [ ! -e packaging/drone.io/${REPO}.conf ]; then
   echo "No such configuration file: packaging/drone.io/${REPO}.conf"
@@ -9,6 +11,14 @@ fi
 
 ## Include the repo configuration
 source packaging/drone.io/${REPO}.conf
+
+## Add remote ppas
+if [ ! -z "${EXTERNAL_PPAS}" ]; then
+	for i in ${EXTERNAL_PPAS}; do
+		sudo apt-add-repository $i
+	done
+	UPDATE_REPOS=1
+fi
 
 ## Add our local repo and our specific dependencies
 if [ ! -z "${REMOTE_DEPENDENCIES}" ]; then
@@ -21,6 +31,10 @@ if [ ! -z "${REMOTE_DEPENDENCIES}" ]; then
 	sudo dpkg-scansources . | gzip -c9 > Sources.gz
 	cd ..
 	sudo apt-add-repository "deb file://${DRONE_BUILD_DIR}/repo /"
+	UPDATE_REPOS=1
+fi
+
+if [ ${UPDATE_REPOS} -eq 1 ]; then
 	sudo apt-get update
 fi
 
