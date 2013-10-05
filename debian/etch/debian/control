@@ -1,7 +1,7 @@
 Source: etch
 Section: libs
 Priority: optional
-Build-Depends: debhelper (>= 6), cdbs, pkg-config, libeina-dev (>= 1.0.0)
+Build-Depends: debhelper (>= 6), cdbs, pkg-config, libeina-dev (>= 1.0.0) | libefl-dev (>= 1.7.8)
 Build-Depends-Indep: doxygen
 Maintainer: Jorge Zapata <jorgeluis.zapata@gmail.com>
 Standards-Version: 3.9.1
@@ -18,7 +18,7 @@ Section: libdevel
 Architecture: any
 Pre-Depends: multiarch-support
 Depends: ${misc:Depends}, libetch0 (= ${binary:Version}), pkg-config,
-  libeina-dev (>= 1.0.0)
+  libeina-dev (>= 1.0.0) | libefl-dev (>= 1.7.8)
 Recommends: libetch-doc
 Description: Timeline based animation library
  This package contains headers and static libraries for development with
