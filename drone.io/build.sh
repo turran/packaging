@@ -3,11 +3,16 @@
 REPO=`echo ${DRONE_REPO_SLUG} | cut -d / -f 3`
 UPDATE_REPOS=0
 
+## Some color definitions
+RED="\033[31m"
+
 ## Read the configuration file for the project
 if [ ! -e packaging/drone.io/${REPO}.conf ]; then
   echo "No such configuration file: packaging/drone.io/${REPO}.conf"
   exit 1
 fi
+
+echo -e "${RED}Using repo ${REPO}"
 
 ## Include the repo configuration
 source packaging/drone.io/${REPO}.conf
@@ -15,6 +20,7 @@ source packaging/drone.io/${REPO}.conf
 ## Add remote ppas
 if [ ! -z "${EXTERNAL_PPAS}" ]; then
 	for i in ${EXTERNAL_PPAS}; do
+		echo -e "${RED}Adding external ppa $i"
 		sudo apt-add-repository $i
 	done
 	UPDATE_REPOS=1
@@ -25,8 +31,10 @@ if [ ! -z "${REMOTE_DEPENDENCIES}" ]; then
 	mkdir repo
 	cd repo
 	for i in ${REMOTE_DEPENDENCIES}; do
-		wget ${REMOTE_DEPENDENCIES} -O - | tar x
+		echo -e "${RED}Downloading $i"
+		wget --quiet ${REMOTE_DEPENDENCIES} -O - | tar x
 	done
+	echo -e "${RED}Creating our local repo"
 	sudo dpkg-scanpackages . /dev/null | gzip -c9 > Packages.gz
 	sudo dpkg-scansources . | gzip -c9 > Sources.gz
 	cd ..
