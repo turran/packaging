@@ -49,10 +49,12 @@ fi
 ## Install the dependencies
 sudo apt-get install devscripts cdbs check
 if [ ! -z "${BUILD_DEPENDENCIES}" ]; then
+	echo -e "${RED}Installing ${BUILD_DEPENDENCIES}"
 	sudo apt-get install ${BUILD_DEPENDENCIES}
 fi
 
 ## Check that everything is fine
+echo -e "${RED}Everything setup to build"
 NOCONFIGURE=1 ./autogen.sh
 ./configure || exit 1
 make dist || exit 1
