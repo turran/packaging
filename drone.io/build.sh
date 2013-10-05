@@ -4,8 +4,10 @@ REPO=`echo ${DRONE_REPO_SLUG} | cut -d / -f 3`
 UPDATE_REPOS=0
 
 ## Some color definitions
-GREEN="\033[31m"
+RED="\033[31m"
 GREEN="\033[32m"
+NORMAL="\033[0m"
+
 
 ## Read the configuration file for the project
 if [ ! -e packaging/drone.io/${REPO}.conf ]; then
@@ -13,7 +15,7 @@ if [ ! -e packaging/drone.io/${REPO}.conf ]; then
   exit 1
 fi
 
-echo -e "${GREEN}Using repo ${REPO}"
+echo -e "${GREEN}Using repo ${REPO}${NORMAL}"
 
 ## Include the repo configuration
 source packaging/drone.io/${REPO}.conf
@@ -21,7 +23,7 @@ source packaging/drone.io/${REPO}.conf
 ## Add remote ppas
 if [ ! -z "${EXTERNAL_PPAS}" ]; then
 	for i in ${EXTERNAL_PPAS}; do
-		echo -e "${GREEN}Adding external ppa $i"
+		echo -e "${GREEN}Adding external ppa $i${NORMAL}"
 		sudo apt-add-repository $i
 	done
 	UPDATE_REPOS=1
@@ -35,7 +37,7 @@ if [ ! -z "${REMOTE_DEPENDENCIES}" ]; then
 		echo -e "${GREEN}Downloading $i"
 		wget --quiet ${i} -O - | tar x
 	done
-	echo -e "${GREEN}Creating our local repo"
+	echo -e "${GREEN}Creating our local repo${NORMAL}"
 	sudo dpkg-scanpackages . /dev/null | gzip -c9 > Packages.gz
 	sudo dpkg-scansources . | gzip -c9 > Sources.gz
 	cd ..
@@ -50,12 +52,12 @@ fi
 ## Install the dependencies
 sudo apt-get install devscripts cdbs check
 if [ ! -z "${BUILD_DEPENDENCIES}" ]; then
-	echo -e "${GREEN}Installing ${BUILD_DEPENDENCIES}"
-	sudo apt-get install ${BUILD_DEPENDENCIES} || echo -e "${RED}Failed to install build dependencies"
+	echo -e "${GREEN}Installing ${BUILD_DEPENDENCIES}${NORMAL}"
+	sudo apt-get install ${BUILD_DEPENDENCIES} || echo -e "${RED}Failed to install build dependencies${NORMAL}"
 fi
 
 ## Check that everything is fine
-echo -e "${GREEN}Everything setup to build"
+echo -e "${GREEN}Everything setup to build${NORMAL}"
 NOCONFIGURE=1 ./autogen.sh
 ./configure || exit 1
 make dist || exit 1
