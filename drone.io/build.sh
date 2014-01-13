@@ -67,7 +67,7 @@ cp ${REPO}*.tar.gz ${REPO}-latest.tar.gz
 
 ## Upload to coverity in case the envvar is set
 if [ ! -z "{COVERITY_TOKEN}" ]; then
-	curl --form project=${REPO} --form token=${COVERITY_TOKEN} --form  \
+	curl --form project=${REPO} --form token=${COVERITY_TOKEN} \
 			--form file=${REPO}-latest.tar.gz --form version=head \
 			http://scan5.coverity.com/cgi-bin/upload.py
 fi
