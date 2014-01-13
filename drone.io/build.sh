@@ -67,9 +67,14 @@ cp ${REPO}*.tar.gz ${REPO}-latest.tar.gz
 
 ## Upload to coverity in case the envvar is set
 if [ ! -z "{COVERITY_TOKEN}" ]; then
+	echo -e "${GREEN}Downloading the coverity build tools${NORMAL}"
+	wget --quiet https://scan.coverity.com/download/linux-64 -O - | tar x
+	cov-analysis-linux64-6.6.1/bin/cov-build --dir cov-int make -j4
+	tar czvf ${REPO}-coverity.tar.gz cov-int
 	echo -e "${GREEN}Uploading to coverity${NORMAL}"
 	curl --form project=${REPO} --form token=${COVERITY_TOKEN} \
-			--form file=${REPO}-latest.tar.gz --form version=head \
+			--form email=${COVERITY_EMAIL} \
+			--form file=@${REPO}-latest.tar.gz --form version=head \
 			http://scan5.coverity.com/cgi-bin/upload.py
 fi
 
