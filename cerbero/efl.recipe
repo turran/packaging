@@ -1,0 +1,38 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+import shutil
+
+class Recipe(recipe.Recipe):
+    name = 'efl'
+    version = '1.10.1'
+    stype = SourceType.TARBALL
+    url = 'http://download.enlightenment.org/rel/libs/efl/efl-1.10.1.tar.gz'
+    licenses = [License.LGPLv2Plus]
+    config_sh = 'sh autogen.sh'
+    deps = ['freetype', 'zlib', 'gnutls']
+    can_use_configure_cache = False
+
+    files_libs = [
+        'libeina', 'libevas', 'libecore', 'libedje', 'libeet', 'libeio', 'libembryo']
+    files_bins = ['edje_decc', 'edje_cc', 'edje_recc', 'edje_inspector',
+        'edje_external_inspector', 'edje_player', 'embryo_cc'
+    ]
+
+    files_devel = [
+        'lib/pkgconfig/eina.pc',
+        'lib/pkgconfig/evas.pc',
+        'lib/pkgconfig/ecore.pc',
+        'lib/pkgconfig/embryo.pc',
+        'lib/pkgconfig/edje.pc',
+        'include/eina-1/',
+        'include/evas-1/',
+        'include/ecore-1/',
+        'include/embryo-1/',
+        'include/edje-1/',
+        ]
+
+    def prepare(self):
+        self.config_sh = './autogen.sh'
+        # Some issue with g++ and setting the CXX environ
+        self.configure_options = ' --with-crypto=gnutls ac_ct_CXX=g++'
+
+    # Check how does glib does for the modules
