@@ -95,7 +95,7 @@ if [ -z ${NODOC} ]; then
 	exist=$?
 	if [ ${exist} -eq 0 ]; then
 		git clone -b gh-pages git@github.com:turran/${REPO}.git gh-pages
-		make doc
+		make doxygen
 		rm -rf gh-pages/docs/*
 		if [ ! -e gh-pages/docs ]; then
 			mkdir gh-pages/docs
