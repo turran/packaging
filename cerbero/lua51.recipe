@@ -1,0 +1,21 @@
+class Recipe(recipe.Recipe):
+    name = 'lua5.1'
+    version = '5'
+    stype = SourceType.TARBALL
+    url = 'http://www.lua.org/ftp/lua-5.1.5.tar.gz'
+    tarball_dirname = 'lua-5.1.%s' % (version)
+
+    files_libs = ['liblua5.1']
+    files_devel = [
+        'include/lua5.1'
+        'lib/pkgconfig/lua5.1.pc'
+    ]
+
+    patches = ['lua51/0001-ncurses.patch',
+        'lua51/0002-so.patch']
+
+    def prepare(self):
+        if self.config.target_platform == Platform.LINUX:
+            self.make = 'make linux'
+            self.make_install = 'make install INSTALL_TOP=%s' % self.config.prefix
+            self._remove_steps ([BuildSteps.CONFIGURE])

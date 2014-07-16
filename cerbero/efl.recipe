@@ -7,9 +7,10 @@ class Recipe(recipe.Recipe):
     stype = SourceType.TARBALL
     url = 'http://download.enlightenment.org/rel/libs/efl/efl-1.10.1.tar.gz'
     licenses = [License.LGPLv2Plus]
-    config_sh = 'sh autogen.sh'
-    deps = ['freetype', 'zlib', 'gnutls']
+    deps = ['freetype', 'zlib', 'gnutls', 'lua5.1']
     can_use_configure_cache = False
+    # for dbus ...
+    use_system_libs = True
 
     files_libs = [
         'libeina', 'libevas', 'libecore', 'libedje', 'libeet', 'libeio', 'libembryo']
@@ -31,8 +32,10 @@ class Recipe(recipe.Recipe):
         ]
 
     def prepare(self):
-        self.config_sh = './autogen.sh'
         # Some issue with g++ and setting the CXX environ
-        self.configure_options = ' --with-crypto=gnutls ac_ct_CXX=g++'
+        self.configure_options = ' --with-crypto=gnutls ac_ct_CXX=g++' \
+                ' --enable-lua-old --disable-gstreamer1 --disable-pulseaudio' \
+                ' --disable-physics --disable-audio --disable-libmount' \
+                ' --enable-i-really-know-what-i-am-doing-and-that-this-will-probably-break-things-and-i-will-fix-them-myself-and-send-patches-aaa'
 
     # Check how does glib does for the modules

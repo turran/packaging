@@ -1,0 +1,6 @@
+class Recipe(recipe.Recipe):
+    name = 'systemd'
+    version = '214'
+    stype = SourceType.TARBALL
+    url = 'http://www.freedesktop.org/software/systemd/systemd-214.tar.xz'
+    deps = ['libcap']

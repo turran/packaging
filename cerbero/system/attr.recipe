@@ -1,0 +1,8 @@
+class Recipe(recipe.Recipe):
+    name = 'attr'
+    version = '2.4.47'
+    stype = SourceType.TARBALL
+    url = 'http://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz'
+
+    def prepare(self):
+        self.make_install = 'make install install-lib install-dev'

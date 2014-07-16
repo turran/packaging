@@ -1,0 +1,15 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+from cerbero.enums import LicenseDescription
+
+class Recipe(recipe.Recipe):
+    name = 'enesim'
+    version = '0.0.21'
+    stype = SourceType.GIT
+    remotes = { 'origin' : 'https://github.com/turran/enesim.git' }
+    commit = 'origin/master'
+    config_sh = 'sh autogen.sh'
+    files_libs = ['libenesim']
+    files_devel = [
+        'lib/pkgconfig/enesim.pc',
+        'include/enesim-0/'
+    ]

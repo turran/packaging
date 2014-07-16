@@ -1,0 +1,11 @@
+class Recipe(recipe.Recipe):
+    name = 'libcap'
+    version = '2.24'
+    stype = SourceType.TARBALL
+    url = 'https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.24.tar.xz'
+
+    def prepare(self):
+        self.new_env['LIBATTR'] = 'no'
+        self.make = 'make LIBATTR=no'
+        self.make_install = 'make install DESTDIR=%s' % self.config.prefix
+        self._remove_steps ([BuildSteps.CONFIGURE])

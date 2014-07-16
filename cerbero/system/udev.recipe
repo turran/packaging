@@ -1,0 +1,7 @@
+class Recipe(recipe.Recipe):
+    name = 'udev'
+    version = '151'
+    stype = SourceType.TARBALL
+    url = 'http://pkgs.fedoraproject.org/repo/pkgs/udev/udev-151.tar.bz2/aeae0e6273dcbec246c3c1b9868ebed1/udev-151.tar.bz2'
+    deps = ['acl']
+
