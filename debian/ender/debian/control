@@ -1,0 +1,48 @@
+Source: ender
+Section: libs
+Priority: optional
+Build-Depends: debhelper (>= 6), cdbs, pkg-config, libefl-dev (>= 1.7.8)
+Build-Depends-Indep: doxygen
+Maintainer: Jorge Zapata <jorgeluis.zapata@gmail.com>
+Standards-Version: 3.9.1
+Vcs-Browser: http://github.com/turran/ender.git
+
+Package: libender0
+Architecture: any
+Pre-Depends: multiarch-support
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Drawing library
+
+Package: libender-dev
+Section: libdevel
+Architecture: any
+Pre-Depends: multiarch-support
+Depends: ${misc:Depends}, libender0 (= ${binary:Version}), pkg-config,
+  libefl-dev (>= 1.7.8)
+Recommends: libender-doc
+Description: Description library
+ This package contains headers and static libraries for development with
+ libender.
+
+Package: libender-doc
+Architecture: all
+Pre-Depends: multiarch-support
+Depends: ${misc:Depends}
+Enhances: libender-dev
+Section: doc
+Description: Drawing library
+ This package contains documentation for libender.
+
+
+Package: libender-dbg
+Architecture: any
+Section: debug
+Pre-Depends: multiarch-support
+Depends: ${misc:Depends}, libender0 (= ${binary:Version})
+Priority: extra
+Description: Description library
+ This package contains unstripped shared libraries. It is provided primarily
+ to provide a backtrace with names in a debugger, this makes it somewhat easier
+ to interpret core dumps. The libraries are installed in /usr/lib/debug and
+ are automatically used by gdb.
+
