@@ -58,6 +58,7 @@ if [ ! -z "${BUILD_DEPENDENCIES}" ]; then
 		echo -e "${RED}Failed to install build dependencies${NORMAL}"
 		exit 1
 	fi
+fi
 
 ## Check that everything is fine
 echo -e "${GREEN}Everything setup to build${NORMAL}"
