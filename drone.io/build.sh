@@ -53,8 +53,11 @@ fi
 sudo apt-get install devscripts cdbs check
 if [ ! -z "${BUILD_DEPENDENCIES}" ]; then
 	echo -e "${GREEN}Installing ${BUILD_DEPENDENCIES}${NORMAL}"
-	sudo apt-get install ${BUILD_DEPENDENCIES} || echo -e "${RED}Failed to install build dependencies${NORMAL} && exit 1"
-fi
+	sudo apt-get install ${BUILD_DEPENDENCIES}
+	if [ ! $? -eq 0 ]; then
+		echo -e "${RED}Failed to install build dependencies${NORMAL}"
+		exit 1
+	fi
 
 ## Check that everything is fine
 echo -e "${GREEN}Everything setup to build${NORMAL}"
