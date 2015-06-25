@@ -15,7 +15,13 @@ class Recipe(recipe.Recipe):
         'lua51/0002-so.patch']
 
     def prepare(self):
-        if self.config.target_platform == Platform.LINUX:
-            self.make = 'make linux'
+        if self.config.target_platform == Platform.ANDROID or \
+           self.config.target_platform == Platform.LINUX:
             self.make_install = 'make install INSTALL_TOP=%s' % self.config.prefix
             self._remove_steps ([BuildSteps.CONFIGURE])
+
+        if self.config.target_platform == Platform.ANDROID:
+            self.make = 'make linux'
+
+        if self.config.target_platform == Platform.LINUX:
+            self.make = 'make linux'

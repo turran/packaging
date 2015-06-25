@@ -3,11 +3,11 @@ import shutil
 
 class Recipe(recipe.Recipe):
     name = 'efl'
-    version = '1.10.1'
+    version = '1.14.1'
     stype = SourceType.TARBALL
-    url = 'http://download.enlightenment.org/rel/libs/efl/efl-1.10.1.tar.gz'
+    url = 'http://download.enlightenment.org/rel/libs/efl/efl-1.14.1.tar.gz'
     licenses = [License.LGPLv2Plus]
-    deps = ['freetype', 'zlib', 'gnutls', 'lua5.1']
+    deps = ['freetype', 'zlib', 'gnutls', 'lua5.1', 'dbus']
     can_use_configure_cache = False
     # for dbus ...
     use_system_libs = True
@@ -36,6 +36,9 @@ class Recipe(recipe.Recipe):
         self.configure_options = ' --with-crypto=gnutls ac_ct_CXX=g++' \
                 ' --enable-lua-old --disable-gstreamer1 --disable-pulseaudio' \
                 ' --disable-physics --disable-audio --disable-libmount' \
-                ' --enable-i-really-know-what-i-am-doing-and-that-this-will-probably-break-things-and-i-will-fix-them-myself-and-send-patches-aaa'
+                ' --enable-image-loader-gif=no --disable-libeeze' \
+                ' --enable-i-really-know-what-i-am-doing-and-that-this-will-probably-break-things-and-i-will-fix-them-myself-and-send-patches-aba'
+        if self.config.target_platform == Platform.ANDROID:
+            self.configure_options += ' --with-x11=none'
 
     # Check how does glib does for the modules
