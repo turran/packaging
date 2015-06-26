@@ -1,0 +1,24 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+from cerbero.enums import LicenseDescription
+
+class Recipe(recipe.Recipe):
+    name = 'egueb'
+    version = '0.0.23'
+    stype = SourceType.GIT
+    remotes = { 'origin' : 'https://github.com/turran/egueb.git' }
+    commit = 'origin/master'
+    deps = ['enesim', 'ender']
+    config_sh = 'sh autogen.sh'
+    files_libs = ['libegueb_dom',
+        'libegueb_xlink'
+        'libegueb_css'
+        'libegueb_smil'
+        'libegueb_svg']
+    files_devel = [
+        'lib/pkgconfig/egueb-dom.pc',
+        'lib/pkgconfig/egueb-xlink.pc',
+        'lib/pkgconfig/egueb-css.pc',
+        'lib/pkgconfig/egueb-smil.pc',
+        'lib/pkgconfig/egueb-svg.pc',
+        'include/egueb-0/'
+    ]
