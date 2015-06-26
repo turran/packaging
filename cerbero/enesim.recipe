@@ -17,4 +17,5 @@ class Recipe(recipe.Recipe):
 
     def prepare(self):
         if self.config.target_platform == Platform.ANDROID:
-            self.configure_options += ' --with-orcc=/usr/bin/orcc'
+            self.configure_options += ' --with-orcc=/usr/bin/orcc' \
+                ' --enable-module-png=static --enable-module-jpg=static'
