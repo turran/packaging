@@ -1,0 +1,58 @@
+diff -ur lua5.1-5/Makefile lua5.1-6/Makefile
+--- lua5.1-5/Makefile	2015-06-26 02:32:56.755005939 +0200
++++ lua5.1-6/Makefile	2015-06-26 11:15:32.965035937 +0200
+@@ -38,7 +38,7 @@
+ # == END OF USER SETTINGS. NO NEED TO CHANGE ANYTHING BELOW THIS LINE =========
+ 
+ # Convenience platforms targets.
+-PLATS= aix ansi bsd freebsd generic linux macosx mingw posix solaris
++PLATS= aix ansi bsd freebsd generic linux macosx mingw posix solaris android
+ 
+ # What to install.
+ TO_BIN= lua luac
+diff -ur lua5.1-5/src/llex.c lua5.1-6/src/llex.c
+--- lua5.1-5/src/llex.c	2009-11-23 15:58:22.000000000 +0100
++++ lua5.1-6/src/llex.c	2015-06-26 11:22:34.157015431 +0200
+@@ -177,10 +177,8 @@
+ 
+ 
+ static void trydecpoint (LexState *ls, SemInfo *seminfo) {
+-  /* format error: try to update decimal point separator */
+-  struct lconv *cv = localeconv();
+   char old = ls->decpoint;
+-  ls->decpoint = (cv ? cv->decimal_point[0] : '.');
++  ls->decpoint = getlocaledecpoint();
+   buffreplace(ls, old, ls->decpoint);  /* try updated decimal separator */
+   if (!luaO_str2d(luaZ_buffer(ls->buff), &seminfo->r)) {
+     /* format error with correct decimal point: no more options */
+diff -ur lua5.1-5/src/luaconf.h lua5.1-6/src/luaconf.h
+--- lua5.1-5/src/luaconf.h	2008-02-11 17:25:08.000000000 +0100
++++ lua5.1-6/src/luaconf.h	2015-06-26 11:22:08.721016669 +0200
+@@ -44,7 +44,13 @@
+ #define LUA_DL_DYLD		/* does not need extra library */
+ #endif
+ 
+-
++#if defined(LUA_USE_ANDROID)
++#define LUA_USE_POSIX
++#define LUA_USE_DLOPEN		/* needs an extra library: -ldl */
++#define getlocaledecpoint() '.'
++#else
++#define getlocaledecpoint() (localeconv()->decimal_point[0])
++#endif
+ 
+ /*
+ @@ LUA_USE_POSIX includes all functionallity listed as X/Open System
+diff -ur lua5.1-5/src/Makefile lua5.1-6/src/Makefile
+--- lua5.1-5/src/Makefile	2015-06-26 02:32:56.755005939 +0200
++++ lua5.1-6/src/Makefile	2015-06-26 11:16:21.049033596 +0200
+@@ -119,6 +119,9 @@
+ solaris:
+ 	$(MAKE) all MYCFLAGS="-DLUA_USE_POSIX -DLUA_USE_DLOPEN" MYLIBS="-ldl"
+ 
++android:
++	$(MAKE) all MYCFLAGS="-DLUA_USE_ANDROID ${MYCFLAGS}" MYLIBS="${MYLIBS} -ldl"
++
+ # list targets that do not create files (but not all makes understand .PHONY)
+ .PHONY: all $(PLATS) default o a clean depend echo none
+ 

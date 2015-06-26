@@ -21,7 +21,8 @@ class Recipe(recipe.Recipe):
             self._remove_steps ([BuildSteps.CONFIGURE])
 
         if self.config.target_platform == Platform.ANDROID:
-            self.make = 'make linux'
+            self.patches += ['lua51/0003-android.patch']
+            self.make = 'make android CC="$CC" MYLIBS="$LDFLAGS" MYCFLAGS="$CFLAGS"'
 
         if self.config.target_platform == Platform.LINUX:
             self.make = 'make linux'
