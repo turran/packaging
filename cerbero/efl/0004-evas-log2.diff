@@ -1,0 +1,14 @@
+diff -ru efl-1.14.1/src/lib/evas/include/evas_private.h efl-1.14.1-working/src/lib/evas/include/evas_private.h
+--- efl-1.14.1/src/lib/evas/include/evas_private.h	2015-05-27 13:27:54.000000000 +0200
++++ efl-1.14.1-working/src/lib/evas/include/evas_private.h	2015-06-26 16:52:48.860050754 +0200
+@@ -5,6 +5,10 @@
+ # include <config.h>
+ #endif
+ 
++#ifdef __BIONIC__
++#define log2(x) (log(x)*1.4426950408889634f) 
++#endif
++
+ #include "Evas.h"
+ 
+ #include "../file/evas_module.h"

@@ -1,0 +1,10 @@
+diff -ru efl-1.14.1/configure.ac efl-1.14.1-working/configure.ac
+--- efl-1.14.1/configure.ac	2015-05-27 15:52:10.000000000 +0200
++++ efl-1.14.1-working/configure.ac	2015-06-26 16:31:21.912113409 +0200
+@@ -3981,6 +3981,7 @@
+ EFL_INTERNAL_DEPEND_PKG([EIO], [eo])
+ EFL_INTERNAL_DEPEND_PKG([EIO], [eina])
+ EFL_INTERNAL_DEPEND_PKG([EIO], [emile])
++EFL_INTERNAL_DEPEND_PKG([EIO], [efl])
+ 
+ EFL_ADD_LIBS([EIO], [-lm])

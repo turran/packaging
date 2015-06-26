@@ -1,0 +1,14 @@
+diff -ru efl-1.14.1/src/lib/embryo/embryo_float.c efl-1.14.1-working/src/lib/embryo/embryo_float.c
+--- efl-1.14.1/src/lib/embryo/embryo_float.c	2015-05-27 13:27:54.000000000 +0200
++++ efl-1.14.1-working/src/lib/embryo/embryo_float.c	2015-06-26 16:29:02.684120187 +0200
+@@ -54,6 +54,10 @@
+ #define MAXFLOAT 3.40282347e+38f
+ #endif
+ 
++#ifdef __BIONIC__
++#define log2f(x) (logf(x)*1.4426950408889634f) 
++#endif
++
+ /* internally useful calls */
+ 
+ static float

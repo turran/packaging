@@ -1,0 +1,80 @@
+diff -ru efl-1.14.1/configure.ac efl-1.14.1-working/configure.ac
+--- efl-1.14.1/configure.ac	2015-06-26 16:53:29.116048794 +0200
++++ efl-1.14.1-working/configure.ac	2015-06-26 17:06:27.144010916 +0200
+@@ -601,6 +601,7 @@
+ geteuid \
+ getuid \
+ pause \
++getpwent \
+ ])
+ 
+ AC_FUNC_ALLOCA
+diff -ru efl-1.14.1/src/lib/ecore_con/ecore_con_local.c efl-1.14.1-working/src/lib/ecore_con/ecore_con_local.c
+--- efl-1.14.1/src/lib/ecore_con/ecore_con_local.c	2015-06-26 17:13:35.243990074 +0200
++++ efl-1.14.1-working/src/lib/ecore_con/ecore_con_local.c	2015-06-26 17:13:45.811989559 +0200
+@@ -99,7 +99,11 @@
+ #if defined(HAVE_GETUID) && defined(HAVE_GETEUID)
+         else
+           {
++#if defined(HAVE_GETPWENT)
+              struct passwd *pw = getpwent();
++#else
++             struct passwd *pw = NULL;
++#endif
+ 
+              if ((!pw) || (!pw->pw_dir)) homedir = "/tmp";
+              else homedir = pw->pw_dir;
+@@ -245,7 +249,11 @@
+ #if defined(HAVE_GETUID) && defined(HAVE_GETEUID)
+         else
+           {
++#if defined(HAVE_GETPWENT)
+              struct passwd *pw = getpwent();
++#else
++             struct passwd *pw = NULL;
++#endif
+ 
+              if ((!pw) || (!pw->pw_dir)) homedir = "/tmp";
+              else homedir = pw->pw_dir;
+diff -ru efl-1.14.1/src/lib/ethumb/ethumb.c efl-1.14.1-working/src/lib/ethumb/ethumb.c
+--- efl-1.14.1/src/lib/ethumb/ethumb.c	2015-05-27 13:27:54.000000000 +0200
++++ efl-1.14.1-working/src/lib/ethumb/ethumb.c	2015-06-26 17:19:53.735971647 +0200
+@@ -265,7 +265,11 @@
+ #if defined(HAVE_GETUID) && defined(HAVE_GETEUID)
+    else
+      {
++#if defined(HAVE_GETPWENT)
+         struct passwd *pw = getpwent();
++#else
++        struct passwd *pw = NULL;
++#endif
+ 
+         if ((!pw) || (!pw->pw_dir)) goto error_plugins_ext;
+         snprintf(buf, sizeof(buf), "%s/.thumbnails", pw->pw_dir);
+@@ -721,7 +725,11 @@
+ #if defined(HAVE_GETUID) && defined(HAVE_GETEUID)
+         else
+           {
++#if defined(HAVE_GETPWENT)
+              struct passwd *pw = getpwent();
++#else
++             struct passwd *pw = NULL;
++#endif
+ 
+              if ((!pw) || (!pw->pw_dir)) return NULL;
+              strncpy(p, pw->pw_dir, PATH_MAX - 1);
+diff -ru efl-1.14.1/src/lib/efreet/efreet_base.c efl-1.14.1-working/src/lib/efreet/efreet_base.c
+--- efl-1.14.1/src/lib/efreet/efreet_base.c	2015-05-27 13:27:54.000000000 +0200
++++ efl-1.14.1-working/src/lib/efreet/efreet_base.c	2015-06-26 17:22:04.283965291 +0200
+@@ -282,7 +282,11 @@
+ #if defined(HAVE_GETUID) && defined(HAVE_GETEUID)
+     if (getuid() != geteuid())
+       {
++#if defined(HAVE_GETPWENT)
+          struct passwd *pw = getpwent();
++#else
++        struct passwd *pw = NULL;
++#endif
+ 
+          if ((pw) && (pw->pw_dir)) efreet_home_dir = pw->pw_dir;
+       }
