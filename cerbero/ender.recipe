@@ -1,0 +1,17 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+from cerbero.enums import LicenseDescription
+
+class Recipe(recipe.Recipe):
+    name = 'ender'
+    version = '0.0.9'
+    stype = SourceType.GIT
+    remotes = { 'origin' : 'https://github.com/turran/ender.git' }
+    commit = 'origin/master'
+    deps = ['enesim']
+    config_sh = 'sh autogen.sh'
+    files_libs = ['libender']
+    files_devel = [
+        'lib/pkgconfig/ender.pc',
+        'include/ender-0/'
+    ]
+
