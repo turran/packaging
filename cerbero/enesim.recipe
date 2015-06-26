@@ -7,9 +7,14 @@ class Recipe(recipe.Recipe):
     stype = SourceType.GIT
     remotes = { 'origin' : 'https://github.com/turran/enesim.git' }
     commit = 'origin/master'
+    deps = ['freetype', 'fontconfig', 'efl', 'jpeg', 'libpng']
     config_sh = 'sh autogen.sh'
     files_libs = ['libenesim']
     files_devel = [
         'lib/pkgconfig/enesim.pc',
         'include/enesim-0/'
     ]
+
+    def prepare(self):
+        if self.config.target_platform == Platform.ANDROID:
+            self.configure_options += ' --with-orcc=/usr/bin/orcc'
