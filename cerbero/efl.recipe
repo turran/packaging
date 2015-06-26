@@ -7,10 +7,15 @@ class Recipe(recipe.Recipe):
     stype = SourceType.TARBALL
     url = 'http://download.enlightenment.org/rel/libs/efl/efl-1.14.1.tar.gz'
     licenses = [License.LGPLv2Plus]
-    deps = ['freetype', 'zlib', 'gnutls', 'lua5.1', 'dbus']
+    deps = ['freetype', 'zlib', 'gnutls', 'lua5.1', 'dbus', 'libgcrypt']
     can_use_configure_cache = False
     # for dbus ...
     use_system_libs = True
+
+    autoreconf = True
+ 
+    patches = ['efl/0001-eina-cpu-android.diff',
+        'efl/0002-eio-libadd.diff']
 
     files_libs = [
         'libeina', 'libevas', 'libecore', 'libedje', 'libeet', 'libeio', 'libembryo']
@@ -39,6 +44,14 @@ class Recipe(recipe.Recipe):
                 ' --enable-image-loader-gif=no --disable-libeeze' \
                 ' --enable-i-really-know-what-i-am-doing-and-that-this-will-probably-break-things-and-i-will-fix-them-myself-and-send-patches-aba'
         if self.config.target_platform == Platform.ANDROID:
-            self.configure_options += ' --with-x11=none'
+            # We disable NEON support, for some reason it fails on compiling emile_image.c:
+            # vst1q_u32 ...
+            self.configure_options += ' --with-x11=none' \
+                ' --with-eolian-gen=/usr/bin/eolian_gen' \
+                ' --with-edje-cc=/usr/bin/edje_cc' \
+                ' --disable-neon'
+            self.patches += ['efl/0003-embryo-log2f.diff',
+                'efl/0004-evas-log2.diff',
+                'efl/0005-getpwent.diff']
 
     # Check how does glib does for the modules
