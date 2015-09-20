@@ -1,0 +1,13 @@
+# -*- Mode: Python -*- vi:si:et:sw=4:sts=4:ts=4:syntax=python
+from cerbero.enums import LicenseDescription
+
+class Recipe(recipe.Recipe):
+    name = 'ender-sharp'
+    version = '0.0.1'
+    stype = SourceType.GIT
+    remotes = { 'origin' : 'https://github.com/turran/ender-sharp.git' }
+    commit = 'origin/master'
+    deps = ['ender', 'egueb']
+    config_sh = 'sh autogen.sh'
+    # for mono ...
+    use_system_libs = True
